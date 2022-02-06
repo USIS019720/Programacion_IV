@@ -49,4 +49,5 @@ var app = new Vue({
             console.log('Error al crear la tabla de clientes', err);
         });
     }
+    
 });
