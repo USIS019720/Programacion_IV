@@ -1,53 +1,58 @@
-var db_sistema = openDatabase('dbsistema', '1.0', 'Sistema de Facturacion', 5 * 1024 * 1024);
-if(!db_sistema){
-    alert('Lo siento tu navegador no soporta BD locales.');
+var db_registro = openDatabase('dbregistro', '1.0', 'Sistema de Registro', 5 * 1024 * 1024);
+if(!db_registro){
+    alert('Disculpa tu navegador no soporta bases de datos locales :(');
 }
 var app = new Vue({
-    el: '#appCliente',
+    el: '#appAlumno',
     data: {
-        cliente: {
+        alumno: {
             accion: '',
-            msg : '',
-            idCliente: '',
+            msg: '',
+            idAlumno: '',
             codigo: '',
             nombre: '',
+            apellido: '',
+            nacimiento: '',
             direccion: '',
             telefono: '',
+            correo: '',
             dui: ''
         },
     },
     methods: {
-        guardarCliente(){
-            db_sistema.transaction(tx=>{
-                tx.executeSql('INSERT INTO clientes (codigo, nombre, direccion, telefono, dui) VALUES (?,?,?,?,?)',
-                [this.cliente.codigo, this.cliente.nombre, this.cliente.direccion, this.cliente.telefono,
-                this.cliente.dui],
+        guardarAlumno(){
+            db_registro.transaction(tx=>{
+                tx.executeSql('INSERT INTO alumno (codigo, nombre, apellido, nacimiento, direccion, telefono, correo, dui) VALUES (?,?,?,?,?,?,?,?)',
+                [this.alumno.codigo, this.alumno.nombre, this.alumno.apellido, this.alumno.nacimiento, this.alumno.direccion,
+                this.alumno.telefono, this.alumno.correo, this.alumno.dui],
                 (tx, results)=>{
-                    this.cliente.msg = 'Cliente guardado con exito';
-                    this.nuevoCliente();
+                    this.alumno.msg = 'Alumno guardado con exito';
+                    this.nuevoAlumno();
                 },
                 (tx, error)=>{
-                    this.cliente.msg = `Error al guardar el cliente ${error.message}`;
+                    this.alumno.msg = `Error al guardar el alumno ${error.message}`;
                 });
             });
         },
-        nuevoCliente(){
-            this.cliente.accion = 'nuevo';
-            this.cliente.idCliente = '';
-            this.cliente.codigo = '';
-            this.cliente.nombre = '';
-            this.cliente.direccion = '';
-            this.cliente.telefono = '';
-            this.cliente.dui = '';
+        nuevoAlumno(){
+            this.alumno.accion = 'nuevo';
+            this.alumno.idAlumno = '';
+            this.alumno.codigo = '';
+            this.alumno.nombre = '';
+            this.alumno.apellido = '';
+            this.alumno.nacimiento = '';
+            this.alumno.direccion = '';
+            this.alumno.telefono = '';
+            this.alumno.correo = '';
+            this.alumno.dui = '';
         }
     },
     created(){
-        db_sistema.transaction(tx=>{
-            tx.executeSql('CREATE TABLE IF NOT EXISTS clientes (idCliente INTEGER PRIMARY KEY AUTOINCREMENT, '+ 
-            'codigo char(10), nombre char(75), direccion TEXT, telefono char(10), dui char(10))');
+        db_registro.transaction(tx=>{
+            tx.executeSql('CREATE TABLE IF NOT EXISTS alumno(idAlumno INTEGER PRIMARY KEY AUTOINCREMENT, '+
+            'codigo char(10), nombre char(75), apellido char(75), nacimiento char(15), direccion TEXT, telefono char(10), correo char(40), dui char(10))');
         }, err=>{
-            console.log('Error al crear la tabla de clientes', err);
+            console.log('Error al crear la tabla alumno', err);
         });
     }
-    
-});
+})
