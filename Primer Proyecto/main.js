@@ -5,6 +5,8 @@ if(!db_registro){
 var app = new Vue({
     el: '#appAlumno',
     data: {
+        alumno: [],
+        buscar: '',
         alumno: {
             accion: '',
             msg: '',
@@ -20,20 +22,54 @@ var app = new Vue({
         },
     },
     methods: {
+        buscarAlumno(){
+            this.obtenerAlumno();
+        },
         guardarAlumno(){
+            let sql = '',
+            parametros = [];
+        if(this.alumno.accion == 'nuevo'){
+            sql = 'INSERT INTO alumno (codigo, nombre, apellido, nacimiento, direccion, telefono, correo, dui) VALUES (?,?,?,?,?,?,?,?)';
+            parametros = [this.alumno.codigo, this.alumno.nombre, this.alumno.apellido, this.alumno.nacimiento, this.alumno.direccion,this.alumno.telefono, this.alumno.correo, this.alumno.dui];
+        }else if(this.alumno.accion == 'modificar'){
+            sql = 'UPDATE alumno SET codigo=?, nombre=?, apellido=?, nacimiento=?, direccion=?, telefono=?, correo=?, dui=? WHERE idCliente=?';
+            parametros = [this.alumno.codigo, this.alumno.nombre, this.alumno.apellido, this.alumno.nacimiento, this.alumno.direccion,this.alumno.telefono, this.alumno.correo, this.alumno.dui,this.alumno.idAlumno];
+        }else if(this.alumno.accion == 'eliminar'){
+            sql = 'DELETE FROM alumno WHERE idAlumno=?';
+            parametros = [this.alumno.idAlumno];
+        }
+        db_registro.transaction(tx=>{
+            tx.executeSql(sql,
+                parametros,
+            (tx, results)=>{
+                this.alumno.msg = 'Alumno procesado con exito';
+                this.nuevoAlumno();
+                this.obtenerAlumno();
+            },
+            (tx, error)=>{
+                this.alumno.msg = `Error al guardar el alumno ${error.message}`;
+            });
+        });
+        },
+        modificarAlumno(alumno){
+            this.alumno = alumno;
+            this.alumno.accion = 'modificar';
+        },
+        eliminarAlumno(alumno){
+            if( confirm(`¿Esta seguro de eliminar el Alumno ${alumno.nombre}?`)){
+                this.alumno.idAlumno = alumno.idAlumno;
+                this.alumno.accion = 'eliminar';
+                this.guardarAlumno();
+            }
+        },
+        obtenerAlumno(busqueda=''){
             db_registro.transaction(tx=>{
-                tx.executeSql('INSERT INTO alumno (codigo, nombre, apellido, nacimiento, direccion, telefono, correo, dui) VALUES (?,?,?,?,?,?,?,?)',
-                [this.alumno.codigo, this.alumno.nombre, this.alumno.apellido, this.alumno.nacimiento, this.alumno.direccion,
-                this.alumno.telefono, this.alumno.correo, this.alumno.dui],
-                (tx, results)=>{
-                    this.alumno.msg = 'Alumno guardado con exito';
-                    this.nuevoAlumno();
-                },
-                (tx, error)=>{
-                    this.alumno.msg = `Error al guardar el alumno ${error.message}`;
+                tx.executeSql(`SELECT * FROM alumno WHERE codigo like "%${busqueda}%" OR nombre like "%${busqueda}%`, [], (tx, results)=>{
+                    this.alumno = results.rows;
                 });
             });
         },
+       
         nuevoAlumno(){
             this.alumno.accion = 'nuevo';
             this.alumno.idAlumno = '';
@@ -54,5 +90,6 @@ var app = new Vue({
         }, err=>{
             console.log('Error al crear la tabla alumno', err);
         });
+        this.obtenerAlumno();
     }
-})
+});
