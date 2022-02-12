@@ -70,7 +70,7 @@
                         <div class="row">
                             <div class="col col-md-3 text-center">
                                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    {{ alumno.msg}}
+                                    {{ alumno.msg }}
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             </div>
@@ -84,51 +84,49 @@
                     </div>
                 </div>
             </form>
-            <div class="card mb-3" id="cardBuscarAlumno">
-                <div class="card-header text-white bg-dark">
-                    Busqueda de Alumnos
+            <div class="card-header text-white bg-dark">
+                Busqueda de Alumnos
 
-                    <button type="button" class="btn-close bg-white" data-bs-dismiss="alert" data-bs-target="#cardBuscarAlumno" aria-label="Close"></button>
-                </div>
-                <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td colspan="6">
-                                    Buscar: <input title="Introduzca el texto a buscar" @keyup="buscarAlumno" v-model="buscar" class="form-control" type="text">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Codigo</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Nacimiento</th>
-                                <th>Direccion</th>
-                                <th>Telefono</th>
-                                <th>Correo</th>
-                                <th>dui</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="alumno in alumno" :key="alumno.idAlumno" @click="modificarAlumno(alumno)">
-                                <td>{{alumno.codigo}}</td>
-                                <td>{{alumno.nombre}}</td>
-                                <td>{{alumno.apellido}}</td>
-                                <td>{{alumno.nacimiento}}</td>
-                                <td>{{alumno.direccion}}</td>
-                                <td>{{alumno.telefono}}</td>
-                                <td>{{alumno.correo}}</td>
-                                <td>{{alumno.dui}}</td>
-                                <td>
-                                    <button type="button" class="btn btn-danger" @click="eliminarAlumno(alumno)">Eliminar</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div> 
-            
+                <button type="button" class="btn-close bg-white" data-bs-dismiss="alert" data-bs-target="#cardBuscarAlumno" aria-label="Close"></button>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td colspan="6">
+                                Buscar: <input title="Introduzca el texto a buscar" @keyup="buscarAlumno" v-model="buscar" class="form-control" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Nacimiento</th>
+                            <th>Direccion</th>
+                            <th>Telefono</th>
+                            <th>Correo</th>
+                            <th>DUI</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="alumno in alumnos" :key="alumno.idAlumno" @click="modificarAlumno(alumno)">
+                            <td>{{alumno.codigo}}</td>
+                            <td>{{alumno.nombre}}</td>
+                            <td>{{alumno.apellido}}</td>
+                            <td>{{alumno.nacimiento}}</td>
+                            <td>{{alumno.direccion}}</td>
+                            <td>{{alumno.telefono}}</td>
+                            <td>{{alumno.correo}}</td>
+                            <td>{{alumno.dui}}</td>
+                            <td>
+                                <button type="button" class="btn btn-danger" @click="eliminarAlumno(alumno)">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div> 
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
