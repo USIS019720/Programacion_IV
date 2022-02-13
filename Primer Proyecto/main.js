@@ -66,10 +66,6 @@ var app = new Vue({
             db_registro.transaction(tx=>{
                 tx.executeSql(`SELECT * FROM alumnos WHERE nombre like "%${busqueda}%" OR codigo like "%${busqueda}%"`, [], (tx, results)=>{
                     this.alumnos = results.rows;
-                    /*this.clientes = [];
-                    for(let i=0; i<results.rows.length; i++){
-                        this.clientes.push(results.rows.item(i));
-                    }*/
                 });
             });
         },
