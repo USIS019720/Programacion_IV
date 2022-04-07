@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\alumno;
+use app\Models\alumno;
 use Illuminate\Http\Request;
 
 class Alumnos extends Controller
@@ -35,14 +35,14 @@ class Alumnos extends Controller
      */
     public function store(Request $request)//POST
     {
-        $id = Alumno::create($request->all())->id;//insert into alumno...
+        $id = alumno::create($request->all())->id;//insert into alumno...
         return response()->json(['id'=>$id], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\alumno  $alumno
+     * @param  \App\Models\alumno  $alumno
      * @return \Illuminate\Http\Response
      */
     public function show(alumno $alumno)
@@ -53,7 +53,7 @@ class Alumnos extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\alumno  $alumno
+     * @param  \App\Models\alumno  $alumno
      * @return \Illuminate\Http\Response
      */
     public function edit(alumno $alumno)
@@ -65,7 +65,7 @@ class Alumnos extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\alumno  $alumno
+     * @param  \App\Models\alumno  $alumno
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, alumno $alumno)//PUT
@@ -77,7 +77,7 @@ class Alumnos extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\alumno  $alumno
+     * @param  \App\Models\alumno  $alumno
      * @return \Illuminate\Http\Response
      */
     public function destroy(alumno $alumno)//DELETE
