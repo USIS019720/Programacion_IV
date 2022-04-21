@@ -22,7 +22,7 @@
                         <div class="row p-1">
                             <div class="col col-md-2">Ciclo:</div>
                             <div class="col col-md-3">
-                                <input title="Ingrese el ciclo" v-model="matricula.ciclo" pattern="[A-ZA-ZÑÑÁÉÍÓÚÜ ]{1,10}" required type="text" class="form-control">
+                                <input title="Ingrese el ciclo" v-model="matricula.ciclo" pattern="[0-9]{1,2}" required type="text" class="form-control">
                             </div>
                         </div>
                         <div class="row p-1">

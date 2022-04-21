@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use app\Models\alumno;
+use App\alumno;
 use Illuminate\Http\Request;
 
 class Alumnos extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -35,14 +39,14 @@ class Alumnos extends Controller
      */
     public function store(Request $request)//POST
     {
-        $id = alumno::create($request->all())->id;//insert into alumno...
+        $id = Alumno::create($request->all())->id;//insert into alumno...
         return response()->json(['id'=>$id], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\alumno  $alumno
+     * @param  \App\alumno  $alumno
      * @return \Illuminate\Http\Response
      */
     public function show(alumno $alumno)
@@ -53,7 +57,7 @@ class Alumnos extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\alumno  $alumno
+     * @param  \App\alumno  $alumno
      * @return \Illuminate\Http\Response
      */
     public function edit(alumno $alumno)
@@ -65,7 +69,7 @@ class Alumnos extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\alumno  $alumno
+     * @param  \App\alumno  $alumno
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, alumno $alumno)//PUT
@@ -77,7 +81,7 @@ class Alumnos extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\alumno  $alumno
+     * @param  \App\alumno  $alumno
      * @return \Illuminate\Http\Response
      */
     public function destroy(alumno $alumno)//DELETE

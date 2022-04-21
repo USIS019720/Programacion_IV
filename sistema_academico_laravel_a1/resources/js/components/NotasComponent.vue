@@ -37,18 +37,6 @@
                             <input title="Notas 3" v-model="nota.notas_3"  required type="text" class="form-control">
                         </div>
                     </div>
-                     <div class="row p-1">
-                        <div class="col col-md-2">Notas 4:</div>
-                        <div class="col col-md-2">
-                            <input title="Notas 4" v-model="nota.notas_4"  required type="text" class="form-control">
-                        </div>
-                    </div>
-                     <div class="row p-1">
-                        <div class="col col-md-2">Notas 5:</div>
-                        <div class="col col-md-2">
-                            <input title="Notas 5" v-model="nota.notas_5"  required type="text" class="form-control">
-                        </div>
-                    </div>
                     <div class="row p-1">
                         <div class="col col-md-5 text-center">
                             <div v-if="nota.mostrar_msg" class="alert alert-primary alert-dismissible fade show" role="alert">
@@ -85,8 +73,6 @@
                             <th>NOTA 1</th>
                             <th>NOTA 2</th>
                             <th>NOTA 3</th>
-                            <th>NOTA 4</th>
-                            <th>NOTA 5</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -97,8 +83,6 @@
                             <td>{{item.notas_1}}</td>
                             <td>{{item.notas_2}}</td>
                             <td>{{item.notas_3}}</td>
-                            <td>{{item.notas_4}}</td>
-                            <td>{{item.notas_5}}</td>
                             <td>
                                 <button class="btn btn-danger" @click="eliminarNota(item)">Eliminar</button>
                             </td>
@@ -127,9 +111,7 @@
                     nombre: '',
                     notas_1: '',
                     notas_2: '',
-                    notas_3: '',
-                    notas_4: '',
-                    notas_5: ''
+                    notas_3: ''
                 }
             }
         },
@@ -244,8 +226,6 @@
                 this.nota.notas_1 = '';
                 this.nota.notas_2 = '';
                 this.nota.notas_3 = '';
-                this.nota.notas_4 = '';
-                this.nota.notas_5 = '';
             },
             abrirStore(store, modo){
                 return db.transaction(store, modo).objectStore(store);
