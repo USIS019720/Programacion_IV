@@ -12,15 +12,26 @@
             </button>
             <h5 class="card-title">Resultados para {{ buscar }}</h5>
             <ul class="list-group list-group-flush">
-                <li v-for="especie in especies" :key="especie.id" class="list-group-item d-flex row align-items-center" :class="{'d-none': !especie.mostrar}">
+                <li v-for="especie in especies" :key="especie.id" class="list-group-item d-flex row align-items-center container-hover" :class="{'d-none': !especie.mostrar}">
                     <div class="col-md-4">
                         <img :src="especie.imagen" style="max-height: 100px;" class="img-fluid rounded">
                     </div>
                     <div class="col-md-8 d-flex flex-column">
                         <span class="card-text">Nombre Común: {{ especie.nombre }}</span>
-                        <span class="card-text">Habitad: {{ especie.habitad }}</span>
-                        <span class="card-text">{{ especie.informacion.substring(0, 100) }}...</span>
-                        <button type="button" class="btn btn-outline-success" @click="verEspecie(especie)">Ver mas</button>
+                        <span class="card-text">Especie: {{ especie.habitad }}</span>
+                        <span class="card-text">{{ especie.informacion.substring(0, 100) }}{{ especie.informacion.length > 100 ? '...' : '' }}</span>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-tool btn-outline-success m-1" v-if="especie.autor_id == user.id" @click="editarEspecie(especie)">
+                                Editar
+                            </button>
+                            <button type="button" class="btn btn-tool btn-outline-danger m-1" v-if="especie.autor_id == user.id" @click="eliminarEspecie(especie)">
+                                Eliminar
+                            </button>
+                            <button type="button" class="btn btn-tool btn-outline-info m-1" @click="verEspecie(especie)">
+                                ver más
+                            </button>
+                        </div>
+
                     </div>
                 </li>
             </ul>
@@ -30,6 +41,12 @@
 
 <script>
 export default ({
+    props: {
+        user: {
+            type: Object,
+            required: true
+        }
+    },
     data() {
         return {
            buscar: '',
@@ -54,6 +71,20 @@ export default ({
         },
         verEspecie(especie) {
             abrirForm('verEspecie', especie);
+        },
+        editarEspecie(especie) {
+            this.$root.$emit('editarEspecie', especie);
+        },
+        eliminarEspecie(especie) {
+            if (confirm('¿Está seguro de eliminar esta especie?')) {
+                axios.delete('/animales/' + especie.id)
+                .then(response => {
+                    this.obtenerEspecies();
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            }
         },
         buscarEspecie() {
             console.log(this.buscar);

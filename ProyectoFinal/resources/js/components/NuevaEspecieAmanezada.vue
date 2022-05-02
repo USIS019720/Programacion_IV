@@ -43,9 +43,9 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-12 offset-md-3">
-                        <button type="button" class="btn btn-tool" @click="salir">Regresar</button>
+                        <button type="button" class="btn btn-danger" @click="salir">Regresar</button>
                         <button type="submit" class="btn btn-success">Agregar</button>
-                        <button type="reset" class="btn btn-danger">Cancelar</button>
+                        <button type="reset" class="btn btn-warning">Cancelar</button>
                     </div>
                 </div>
             </form>

@@ -37,40 +37,55 @@
                             <a class="nav-link" href="#" onclick="abrirForm('consejos')">Consejos</a>
                             </li>
                         </ul>
+                        <ul class="navbar-nav ms-auto">
+                            <!-- Authentication Links -->
+                            @guest
+                                @if (Route::has('login'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    </li>
+                                @endif
+
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    </li>
+                                @endif
+                            @else
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ Auth::user()->name }}
+                                    </a>
+
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </li>
+                            @endguest
+                        </ul>
                     </div>
                 </div>
             </nav>
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <animales-peligro v-bind:form="forms" ref="enpeligro" v-if="forms['enpeligro'].mostrar"></animales-peligro>
+                        <animales-peligro v-bind:form="forms" ref="enpeligro" v-if="forms['enpeligro'].mostrar" :user="{{ Auth::user() }}"></animales-peligro>
                         <nueva-especie-peligro v-bind:form="forms" ref="nuevaPeligro" v-if="forms['nuevaPeligro'].mostrar"></nueva-especie-peligro>
+                        <actualizar-especie v-bind:form="forms" ref="actualizarEspecie" v-if="forms['actualizarEspecie'].mostrar" :especie="especie"></actualizar-especie>
 
                         <programas v-bind:form="forms" ref="programas" v-if="forms['programas'].mostrar"></programas>
                         <nuevo-programa v-bind:form="forms" ref="nuevoPrograma" v-if="forms['nuevoPrograma'].mostrar"></nuevo-programa>
 
                         <consejos v-bind:form="forms" ref="consejos" v-if="forms['consejos'].mostrar"></consejos>
                         <nuevo-consejo v-bind:form="forms" ref="nuevoConsejo" v-if="forms['nuevoConsejo'].mostrar"></nuevo-consejo>
-                        <!-- <div class="card">
-                            <div class="card-header bg-success text-white text-center">
-                                <h3 class="card-title">Especies Amenazadas</h3>
-                                <div class="card-tools">
-                                    Buscar: <input type="text" class="form-control" placeholder="Buscar" v-model="buscar">
-                                </div>
-                            </div>
-                            <div class="card-body" style="background-color: #baefd6;">
-                                <button type="button" class="btn btn-tool btn-outline-success" data-bs-toggle="modal" data-bs-target="#modal-default">
-                                    Agregar Nueva Especie En Peligro
-                                </button>
-                                <h5 class="card-title">Resultados para @{{ buscar }}</h5>
-                                <ul class="list-group list-group-flush">
-                                    <li style="background-color: #91eac1" class="list-group-item flex-column align-items-start justify-content-between">
-                                    <img src="storage/c44c964ba33fe53c3155af3c0230fdb7.pnsg" alt="gato" width="100" height="100">
-                                    <sapn class="card-text">Xxxx</sapn>
-                                    <button type="button" class="btn btn-outline-success">Ver mas</button>
-                                    </li>
-                                </ul>
-                        </div> -->
                     </div>
                 </div>
             </div>

@@ -8,7 +8,7 @@
         </div>
         <div class="card-body" style="background-color: #baefd6;">
             <button type="button" class="btn btn-tool btn-outline-success" @click="nuevoPrograma">
-                Agregar un Nuevo Programa
+                Agregar Nueva Especie En Peligro
             </button>
             <h5 class="card-title">Resultados para {{ buscar }}</h5>
             <ul class="list-group list-group-flush">

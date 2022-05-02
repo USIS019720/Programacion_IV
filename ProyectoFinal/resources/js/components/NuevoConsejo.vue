@@ -10,14 +10,14 @@
                         <div class="row mb-3">
                             <label for="nombre">Titulo</label>
                             <div class="col-md-12">
-                                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre de la especie" v-model="especie.nombre">
+                                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre del programa" v-model="especie.nombre">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="descripcion">Consejo</label>
                             <div class="col-md-12">
-                                <textarea class="form-control" name="descripcion" id="descripcion" placeholder="Nombre del consejo" v-model="especie.descripcion"></textarea>                            </div>
+                                <textarea class="form-control" name="descripcion" id="descripcion" placeholder="Nombre de la organización" v-model="especie.descripcion"></textarea>                            </div>
                             </div>
                         </div>
                     </div>

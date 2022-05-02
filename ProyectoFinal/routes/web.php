@@ -18,8 +18,11 @@ use App\Http\Controllers\ConsejosControlador;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('auth');
 
 Route::resource('animales', AnimalesControlador::class);
 Route::resource('programas', ProgramasControlador::class);
 Route::resource('consejos', ConsejosControlador::class);
+Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

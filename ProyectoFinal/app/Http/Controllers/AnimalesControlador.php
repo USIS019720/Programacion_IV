@@ -35,14 +35,17 @@ class AnimalesControlador extends Controller
      */
     public function store(Request $request)
     {
+        // Crear el campo autor_id y asignarlo al usuario logueado
+        $request->request->add(['autor_id' => auth()->user()->id]);
         $datos = $request->validate([
+            'autor_id' => 'required',
             'nombre' => 'required',
             'informacion' => 'required',
             'habitad' => 'required',
             'imagen' => 'required',
         ]);
         $imagen = $datos['imagen'];
-        $especie = array_slice($datos, 0, 3);
+        $especie = array_slice($datos, 0, 4);
         $nuevaEspecie = animalesPeligro::create($especie);
         $imagen = explode(',', $imagen);
         $imagenName = $nuevaEspecie->id.'.png';
@@ -84,7 +87,25 @@ class AnimalesControlador extends Controller
      */
     public function update(Request $request, animalesPeligro $animalesPeligro)
     {
-        //
+        $request->request->add(['autor_id' => auth()->user()->id]);
+        $datos = $request->validate([
+            'autor_id' => 'required',
+            'nombre' => 'required',
+            'informacion' => 'required',
+            'habitad' => 'required',
+            'imagen' => 'required',
+        ]);
+        $imagen = $datos['imagen'];
+        $especie = array_slice($datos, 0, 4);
+        $animal = animalesPeligro::find($request->id);
+        $animal->update($especie);
+        $imagen = explode(',', $imagen);
+        $imagenName = $animal->id.'.png';
+        $url = 'storage/images/animales/'.$imagenName;
+        file_put_contents($url, base64_decode($imagen[1]));
+        $animal->imagen = $url;
+        $animal->save();
+        return response()->json(['status' => 'success',]);
     }
 
     /**
@@ -93,8 +114,10 @@ class AnimalesControlador extends Controller
      * @param  \App\Models\animalesPeligro  $animalesPeligro
      * @return \Illuminate\Http\Response
      */
-    public function destroy(animalesPeligro $animalesPeligro)
+    public function destroy(animalesPeligro $animalesPeligro, $id)
     {
-        //
+        $animal = animalesPeligro::find($id);
+        $animal->delete();
+        return response()->json(['status' => 'success',]);
     }
 }

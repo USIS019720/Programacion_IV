@@ -5255,6 +5255,139 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ActualizarEspecie.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ActualizarEspecie.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    especie: {
+      type: Object,
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      guardar: {
+        imagen: '',
+        nombre: '',
+        habitad: '',
+        informacion: ''
+      }
+    };
+  },
+  methods: {
+    guardarEspecie: function guardarEspecie() {
+      axios.put('animales/' + this.especie.id, this.guardar).then(function (response) {
+        console.log(response);
+        abrirForm('enpeligro');
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    resetForm: function resetForm() {
+      this.guardar = {
+        imagen: '',
+        nombre: '',
+        habitad: '',
+        informacion: ''
+      };
+    },
+    cargarImagen: function cargarImagen(e) {
+      var _this = this;
+
+      var reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+
+      reader.onload = function (e) {
+        _this.guardar.imagen = e.target.result;
+      };
+    },
+    salir: function salir() {
+      abrirForm('enpeligro');
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.guardar = this.especie;
+
+    this.$refs.imagen.onload = function () {
+      _this2.guardar.imagen = _this2.$refs.imagen.src;
+      var canvas = document.createElement("canvas");
+      var ctx = canvas.getContext("2d");
+      canvas.width = _this2.$refs.imagen.width;
+      canvas.height = _this2.$refs.imagen.height;
+      ctx.drawImage(_this2.$refs.imagen, 0, 0, canvas.width, canvas.height);
+      _this2.guardar.imagen = canvas.toDataURL("image/png");
+    };
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Consejos.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Consejos.vue?vue&type=script&lang=js& ***!
@@ -5382,7 +5515,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    user: {
+      type: Object,
+      required: true
+    }
+  },
   data: function data() {
     return {
       buscar: '',
@@ -5409,15 +5559,29 @@ __webpack_require__.r(__webpack_exports__);
     verEspecie: function verEspecie(especie) {
       abrirForm('verEspecie', especie);
     },
-    buscarEspecie: function buscarEspecie() {
+    editarEspecie: function editarEspecie(especie) {
+      this.$root.$emit('editarEspecie', especie);
+    },
+    eliminarEspecie: function eliminarEspecie(especie) {
       var _this2 = this;
+
+      if (confirm('¿Está seguro de eliminar esta especie?')) {
+        axios["delete"]('/animales/' + especie.id).then(function (response) {
+          _this2.obtenerEspecies();
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      }
+    },
+    buscarEspecie: function buscarEspecie() {
+      var _this3 = this;
 
       console.log(this.buscar);
       this.especies.forEach(function (especie) {
         especie.mostrar = false;
       });
       this.especies.forEach(function (especie) {
-        if (especie.nombre.toLowerCase().includes(_this2.buscar.toLowerCase()) || especie.habitad.toLowerCase().includes(_this2.buscar.toLowerCase()) || especie.informacion.toLowerCase().includes(_this2.buscar.toLowerCase()) || _this2.buscar.length == 0) {
+        if (especie.nombre.toLowerCase().includes(_this3.buscar.toLowerCase()) || especie.habitad.toLowerCase().includes(_this3.buscar.toLowerCase()) || especie.informacion.toLowerCase().includes(_this3.buscar.toLowerCase()) || _this3.buscar.length == 0) {
           especie.mostrar = true;
         }
       });
@@ -5899,6 +6063,7 @@ Vue.component('programas', (__webpack_require__(/*! ./components/Programas.vue *
 Vue.component('nuevo-programa', (__webpack_require__(/*! ./components/NuevoPrograma.vue */ "./resources/js/components/NuevoPrograma.vue")["default"]));
 Vue.component('consejos', (__webpack_require__(/*! ./components/Consejos.vue */ "./resources/js/components/Consejos.vue")["default"]));
 Vue.component('nuevo-consejo', (__webpack_require__(/*! ./components/NuevoConsejo.vue */ "./resources/js/components/NuevoConsejo.vue")["default"]));
+Vue.component('actualizar-especie', (__webpack_require__(/*! ./components/ActualizarEspecie.vue */ "./resources/js/components/ActualizarEspecie.vue")["default"]));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -5939,10 +6104,22 @@ var app = new Vue({
       },
       nuevoConsejo: {
         mostrar: false
+      },
+      actualizarEspecie: {
+        mostrar: false
       }
-    }
+    },
+    especie: {}
   },
-  methods: {}
+  methods: {},
+  beforeMount: function beforeMount() {
+    var _this = this;
+
+    this.$on('editarEspecie', function (data) {
+      _this.especie = data;
+      abrirForm('actualizarEspecie');
+    });
+  }
 });
 
 /***/ }),
@@ -28429,6 +28606,45 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./resources/js/components/ActualizarEspecie.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/ActualizarEspecie.vue ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ActualizarEspecie_vue_vue_type_template_id_309f2811___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ActualizarEspecie.vue?vue&type=template&id=309f2811& */ "./resources/js/components/ActualizarEspecie.vue?vue&type=template&id=309f2811&");
+/* harmony import */ var _ActualizarEspecie_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ActualizarEspecie.vue?vue&type=script&lang=js& */ "./resources/js/components/ActualizarEspecie.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ActualizarEspecie_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ActualizarEspecie_vue_vue_type_template_id_309f2811___WEBPACK_IMPORTED_MODULE_0__.render,
+  _ActualizarEspecie_vue_vue_type_template_id_309f2811___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ActualizarEspecie.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Consejos.vue":
 /*!**********************************************!*\
   !*** ./resources/js/components/Consejos.vue ***!
@@ -28702,6 +28918,22 @@ component.options.__file = "resources/js/components/Programas.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/ActualizarEspecie.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/ActualizarEspecie.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ActualizarEspecie_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ActualizarEspecie.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ActualizarEspecie.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ActualizarEspecie_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Consejos.vue?vue&type=script&lang=js&":
 /*!***********************************************************************!*\
   !*** ./resources/js/components/Consejos.vue?vue&type=script&lang=js& ***!
@@ -28811,6 +29043,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Programas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Programas.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Programas.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Programas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ActualizarEspecie.vue?vue&type=template&id=309f2811&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/ActualizarEspecie.vue?vue&type=template&id=309f2811& ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ActualizarEspecie_vue_vue_type_template_id_309f2811___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ActualizarEspecie_vue_vue_type_template_id_309f2811___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ActualizarEspecie_vue_vue_type_template_id_309f2811___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ActualizarEspecie.vue?vue&type=template&id=309f2811& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ActualizarEspecie.vue?vue&type=template&id=309f2811&");
+
 
 /***/ }),
 
@@ -28929,6 +29178,238 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Programas_vue_vue_type_template_id_61b478db___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Programas_vue_vue_type_template_id_61b478db___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Programas.vue?vue&type=template&id=61b478db& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Programas.vue?vue&type=template&id=61b478db&");
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ActualizarEspecie.vue?vue&type=template&id=309f2811&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ActualizarEspecie.vue?vue&type=template&id=309f2811& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "card-body",
+        staticStyle: { "background-color": "#baefd6" },
+      },
+      [
+        _c(
+          "form",
+          {
+            on: {
+              submit: function ($event) {
+                $event.preventDefault()
+                return _vm.guardarEspecie.apply(null, arguments)
+              },
+              reset: function ($event) {
+                $event.preventDefault()
+                return _vm.resetForm.apply(null, arguments)
+              },
+            },
+          },
+          [
+            _c("div", { staticClass: "row mb-3" }, [
+              _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("img", {
+                    ref: "imagen",
+                    staticClass: "img-fluid rounded mx-auto d-block",
+                    staticStyle: { "max-width": "100%" },
+                    attrs: { alt: "imagen", src: _vm.guardar.imagen },
+                  }),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "row mb-3" }, [
+                  _c("label", { attrs: { for: "imagen" } }, [_vm._v("Imagen")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-12" }, [
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "file",
+                        name: "imagen",
+                        id: "imagen",
+                        placeholder: "Imagen de la Especie",
+                      },
+                      on: { change: _vm.cargarImagen },
+                    }),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row mb-3" }, [
+                  _c("label", { attrs: { for: "nombre" } }, [_vm._v("Nombre")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-12" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.guardar.nombre,
+                          expression: "guardar.nombre",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        name: "nombre",
+                        id: "nombre",
+                        placeholder: "Nombre de la Especie",
+                      },
+                      domProps: { value: _vm.guardar.nombre },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.guardar, "nombre", $event.target.value)
+                        },
+                      },
+                    }),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row mb-3" }, [
+                  _c("label", { attrs: { for: "habitad" } }, [
+                    _vm._v("Habitad"),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-12" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.guardar.habitad,
+                          expression: "guardar.habitad",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        name: "habitad",
+                        id: "habitad",
+                        placeholder: "Habitad de la especie",
+                      },
+                      domProps: { value: _vm.guardar.habitad },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.guardar, "habitad", $event.target.value)
+                        },
+                      },
+                    }),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row mb-3" }, [
+                  _c("label", { attrs: { for: "informacion" } }, [
+                    _vm._v("Información"),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-12" }, [
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.guardar.informacion,
+                          expression: "guardar.informacion",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        name: "informacion",
+                        id: "informacion",
+                        placeholder: "Información de la Especie",
+                      },
+                      domProps: { value: _vm.guardar.informacion },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.guardar,
+                            "informacion",
+                            $event.target.value
+                          )
+                        },
+                      },
+                    }),
+                  ]),
+                ]),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row mb-3" }, [
+              _c("div", { staticClass: "col-md-12 offset-md-3" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button" },
+                    on: { click: _vm.salir },
+                  },
+                  [_vm._v("Regresar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  { staticClass: "btn btn-success", attrs: { type: "submit" } },
+                  [_vm._v("Actualizar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  { staticClass: "btn btn-warning", attrs: { type: "reset" } },
+                  [_vm._v("Cancelar")]
+                ),
+              ]),
+            ]),
+          ]
+        ),
+      ]
+    ),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "card-header bg-success text-white text-center" },
+      [
+        _c("h3", { staticClass: "card-title" }, [
+          _vm._v("Agregar Una Especie Amenazada"),
+        ]),
+      ]
+    )
+  },
+]
+render._withStripped = true
+
 
 
 /***/ }),
@@ -29136,7 +29617,8 @@ var render = function () {
               "li",
               {
                 key: especie.id,
-                staticClass: "list-group-item d-flex row align-items-center",
+                staticClass:
+                  "list-group-item d-flex row align-items-center container-hover",
                 class: { "d-none": !especie.mostrar },
               },
               [
@@ -29159,23 +29641,70 @@ var render = function () {
                   _vm._v(" "),
                   _c("span", { staticClass: "card-text" }, [
                     _vm._v(
-                      _vm._s(especie.informacion.substring(0, 100)) + "..."
+                      _vm._s(especie.informacion.substring(0, 100)) +
+                        _vm._s(especie.informacion.length > 100 ? "..." : "")
                     ),
                   ]),
                   _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-outline-success",
-                      attrs: { type: "button" },
-                      on: {
-                        click: function ($event) {
-                          return _vm.verEspecie(especie)
+                  _c("div", { staticClass: "d-flex justify-content-end" }, [
+                    especie.autor_id == _vm.user.id
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-tool btn-outline-success m-1",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function ($event) {
+                                return _vm.editarEspecie(especie)
+                              },
+                            },
+                          },
+                          [
+                            _vm._v(
+                              "\n                            Editar\n                        "
+                            ),
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    especie.autor_id == _vm.user.id
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-tool btn-outline-danger m-1",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function ($event) {
+                                return _vm.eliminarEspecie(especie)
+                              },
+                            },
+                          },
+                          [
+                            _vm._v(
+                              "\n                            Eliminar\n                        "
+                            ),
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-tool btn-outline-info m-1",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function ($event) {
+                            return _vm.verEspecie(especie)
+                          },
                         },
                       },
-                    },
-                    [_vm._v("Ver mas")]
-                  ),
+                      [
+                        _vm._v(
+                          "\n                            ver más\n                        "
+                        ),
+                      ]
+                    ),
+                  ]),
                 ]),
               ]
             )
@@ -29424,7 +29953,7 @@ var render = function () {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-tool",
+                    staticClass: "btn btn-danger",
                     attrs: { type: "button" },
                     on: { click: _vm.salir },
                   },
@@ -29439,7 +29968,7 @@ var render = function () {
                 _vm._v(" "),
                 _c(
                   "button",
-                  { staticClass: "btn btn-danger", attrs: { type: "reset" } },
+                  { staticClass: "btn btn-warning", attrs: { type: "reset" } },
                   [_vm._v("Cancelar")]
                 ),
               ]),

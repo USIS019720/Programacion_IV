@@ -10,6 +10,6 @@ class animalesPeligro extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nombre', 'informacion', 'habitad', 'imagen',
+        'autor_id', 'nombre', 'informacion', 'habitad', 'imagen',
     ];
 }

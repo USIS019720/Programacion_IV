@@ -15,11 +15,13 @@ class AnimalesPeligro extends Migration
     {
         Schema::create('animales_peligros', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('autor_id');
             $table->string('nombre');
             $table->string('imagen')->nullable();
             $table->string('informacion');
             $table->string('habitad');
             $table->timestamps();
+            $table->foreign('autor_id')->references('id')->on('users');
         });
     }
 

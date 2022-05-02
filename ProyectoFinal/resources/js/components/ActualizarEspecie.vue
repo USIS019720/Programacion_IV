@@ -8,7 +8,7 @@
                 <div class="row mb-3">
                     <div class="col-md-6">              
                         <div class="col-md-12">
-                            <img alt="imagen" :src="programa.imagen" style="max-width: 100%;" class="img-fluid rounded mx-auto d-block">
+                            <img alt="imagen" :src="guardar.imagen" ref="imagen" style="max-width: 100%;" class="img-fluid rounded mx-auto d-block">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -22,37 +22,30 @@
                         <div class="row mb-3">
                             <label for="nombre">Nombre</label>
                             <div class="col-md-12">
-                                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre del programa" v-model="programa.nombre">
+                                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre de la Especie" v-model="guardar.nombre">
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label for="organizacion">Organización</label>
+                            <label for="habitad">Habitad</label>
                             <div class="col-md-12">
-                                <input type="text" class="form-control" name="organizacion" id="organizacion" placeholder="Nombre de la organización" v-model="programa.organizacion">
-                            </div>
-                        </div>
-                        
-                        <div class="row mb-3">
-                            <label for="descripcion">Descripción</label>
-                            <div class="col-md-12">
-                                <textarea class="form-control" name="descripcion" id="descripcion" placeholder="Descripción de la Especie" v-model="programa.descripcion"></textarea>
+                                <input type="text" class="form-control" name="habitad" id="habitad" placeholder="Habitad de la especie" v-model="guardar.habitad">
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label for="objetivo">Objetivo</label>
+                            <label for="informacion">Información</label>
                             <div class="col-md-12">
-                                <textarea class="form-control" name="objetivo" id="objetivo" placeholder="Descripción de la Especie" v-model="programa.objetivo"></textarea>
+                                <textarea class="form-control" name="informacion" id="informacion" placeholder="Información de la Especie" v-model="guardar.informacion"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-12 offset-md-3">
-                        <button type="button" class="btn btn-alert" @click="salir">Regresar</button>
-                        <button type="submit" class="btn btn-success">Agregar</button>
-                        <button type="reset" class="btn btn-danger">Cancelar</button>
+                        <button type="button" class="btn btn-danger" @click="salir">Regresar</button>
+                        <button type="submit" class="btn btn-success">Actualizar</button>
+                        <button type="reset" class="btn btn-warning">Cancelar</button>
                     </div>
                 </div>
             </form>
@@ -62,34 +55,38 @@
 
 <script>
 export default ({
+    props: {
+        especie: {
+            type: Object,
+            required: true
+        }
+    },
     data() {
         return {
-            programa: {
+            guardar: {
                 imagen: '',
                 nombre: '',
-                organizacion: '',
-                objetivo: '',
+                habitad: '',
                 informacion: ''
             },
         }
     },
     methods: {
         guardarEspecie() {
-            axios.post('programas', this.programa)
+            axios.put('animales/' + this.especie.id, this.guardar)
                 .then(response => {
                     console.log(response);
-                    abrirForm('programas')
+                    abrirForm('enpeligro')
                 })
                 .catch(error => {
                     console.log(error);
                 });
         },
         resetForm() {
-            this.programa = {
+            this.guardar = {
                 imagen: '',
                 nombre: '',
-                organizacion: '',
-                objetivo: '',
+                habitad: '',
                 informacion: ''
             }
         },
@@ -97,12 +94,24 @@ export default ({
             var reader = new FileReader();
             reader.readAsDataURL(e.target.files[0]);
             reader.onload = (e) => {
-                this.programa.imagen = e.target.result;
+                this.guardar.imagen = e.target.result;
             }
         },
         salir() {
-            abrirForm('programas');
+            abrirForm('enpeligro');
         }
     },
+    mounted() {
+        this.guardar = this.especie;
+        this.$refs.imagen.onload = () => {
+            this.guardar.imagen = this.$refs.imagen.src;
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+            canvas.width = this.$refs.imagen.width;
+            canvas.height = this.$refs.imagen.height;
+            ctx.drawImage(this.$refs.imagen, 0, 0, canvas.width, canvas.height);
+            this.guardar.imagen = canvas.toDataURL("image/png");
+        }
+    }
 })
 </script>
