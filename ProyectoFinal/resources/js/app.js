@@ -27,6 +27,9 @@
  Vue.component('consejos',  require('./components/Consejos.vue').default);
  Vue.component('nuevo-consejo',  require('./components/NuevoConsejo.vue').default);
  Vue.component('actualizar-especie', require('./components/ActualizarEspecie.vue').default);
+ Vue.component('curiosidades', require('./components/DatosCurisos.vue').default);
+ Vue.component('nuevo-dato', require('./components/NuevoDato.vue').default);
+ Vue.component('legislacion', require('./components/Legislacion.vue').default);
  /**
   * Next, we will create a fresh Vue application instance and attach it to
   * the page. Then, you may begin adding components to this application
@@ -54,7 +57,10 @@
             nuevoPrograma: {mostrar: false},
             consejos: {mostrar: false},
             nuevoConsejo: {mostrar: false},
-            actualizarEspecie: {mostrar: false}
+            actualizarEspecie: {mostrar: false},
+            curiosidades: {mostrar: false},
+            nuevoDato: {mostrar: false},
+            legislacion: {mostrar: false},
          },
          especie: {},
      },

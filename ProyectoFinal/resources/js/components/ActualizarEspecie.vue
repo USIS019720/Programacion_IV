@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-header bg-success text-white text-center">
-            <h3 class="card-title">Agregar Una Especie Amenazada</h3>
+            <h3 class="card-title">Actualzar Una Especie Amenazada</h3>
         </div>
         <div class="card-body" style="background-color: #baefd6;">
             <form @submit.prevent="guardarEspecie" @reset.prevent="resetForm">

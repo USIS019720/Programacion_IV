@@ -23,6 +23,7 @@ Route::get('/', function () {
 Route::resource('animales', AnimalesControlador::class);
 Route::resource('programas', ProgramasControlador::class);
 Route::resource('consejos', ConsejosControlador::class);
+Route::resource('datos', DatosCuriososControlador::class);
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

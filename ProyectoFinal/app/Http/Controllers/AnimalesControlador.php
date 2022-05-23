@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\animalesPeligro;
 use Illuminate\Http\Request;
 
-
 class AnimalesControlador extends Controller
 {
     /**

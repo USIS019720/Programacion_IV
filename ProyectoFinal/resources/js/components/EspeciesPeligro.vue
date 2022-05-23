@@ -1,9 +1,9 @@
 <template>
     <div class="card">
         <div class="card-header bg-success text-white text-center">
-            <h3 class="card-title">Especies Amenazadas</h3>
+            <h3 class="card-title">Especies En Peligro</h3>
             <div class="card-tools">
-                <input type="text" class="form-control" placeholder="Buscar" v-model="buscar" @keyup="buscarEspecie">
+                <input type="text" class="form-control" placeholder="Buscar Especie" v-model="buscar" @keyup="buscarEspecie">
             </div>
         </div>
         <div class="card-body" style="background-color: #baefd6;">
@@ -18,7 +18,7 @@
                     </div>
                     <div class="col-md-8 d-flex flex-column">
                         <span class="card-text">Nombre Común: {{ especie.nombre }}</span>
-                        <span class="card-text">Especie: {{ especie.habitad }}</span>
+                        <span class="card-text">Habitad: {{ especie.habitad }}</span>
                         <span class="card-text">{{ especie.informacion.substring(0, 100) }}{{ especie.informacion.length > 100 ? '...' : '' }}</span>
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-tool btn-outline-success m-1" v-if="especie.autor_id == user.id" @click="editarEspecie(especie)">

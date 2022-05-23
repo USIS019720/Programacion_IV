@@ -22,23 +22,30 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Especies
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#" onclick="abrirForm('enpeligro')">Especies en peligo</a></li>
-                                <li><a class="dropdown-item disabled" href="#">Animales extintas</a></li>
-                            </ul>
-                            </li>                            
-                            <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="abrirForm('programas')">Programas</a>
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Especies
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#" onclick="abrirForm('enpeligro')">Especies en peligo</a></li>
+                                    <li><a class="dropdown-item disabled" href="#">Animales extintas</a></li>
+                                </ul>
                             </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Informate
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#" onclick="abrirForm('consejos')">Consejos</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="abrirForm('curiosidades')">Datos curiosos</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="abrirForm('legislacion')">Legislación</a></li>
+                                </ul>
+                            </li>
+
                             <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="abrirForm('consejos')">Consejos</a>
+                                <a class="nav-link" href="#" onclick="abrirForm('programas')">Programas</a>
                             </li>
                         </ul>
                         <ul class="navbar-nav ms-auto">
-                            <!-- Authentication Links -->
                             @guest
                                 @if (Route::has('login'))
                                     <li class="nav-item">
@@ -86,6 +93,9 @@
 
                         <consejos v-bind:form="forms" ref="consejos" v-if="forms['consejos'].mostrar"></consejos>
                         <nuevo-consejo v-bind:form="forms" ref="nuevoConsejo" v-if="forms['nuevoConsejo'].mostrar"></nuevo-consejo>
+
+                        <curiosidades v-bind:form="forms" ref="curiosidades" v-if="forms['curiosidades'].mostrar"></curiosidades>
+                        <legislacion v-bind:form="forms" ref="legislacion" v-if="forms['legislacion'].mostrar"></legislacion>
                     </div>
                 </div>
             </div>

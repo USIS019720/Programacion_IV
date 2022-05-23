@@ -1,9 +1,9 @@
 <template>
     <div class="card">
         <div class="card-header bg-success text-white text-center">
-            <h3 class="card-title">Buscar Consejos</h3>
+            <h3 class="card-title">Consejos Para Cuidar El Medio Ambiente</h3>
             <div class="card-tools">
-                <input type="text" class="form-control" placeholder="Buscar" v-model="buscar" @keyup="buscarConsejo">
+                <input type="text" class="form-control" placeholder="Buscar Consejos" v-model="buscar" @keyup="buscarConsejo">
             </div>
         </div>
         <div class="card-body" style="background-color: #baefd6;">
