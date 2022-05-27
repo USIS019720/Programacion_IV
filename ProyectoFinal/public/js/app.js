@@ -5528,7 +5528,10 @@ var _this3 = undefined;
     return {
       buscar: '',
       datos: [],
-      datoAleatorio: {}
+      datoAleatorio: {
+        nombre: '',
+        descripcion: ''
+      }
     };
   },
   methods: {
@@ -5564,15 +5567,22 @@ var _this3 = undefined;
     }
   },
   mounted: function mounted() {
-    this.obtenerDatos();
-    this.datoAleatorio = this.datos[Math.floor(Math.random() * this.datos.length)];
+    this.obtenerDatos(); // this.datoAleatorio = this.datos[Math.floor(Math.random() * this.datos.length)];
   },
   watch: {
     datoAleatorio: function datoAleatorio() {
       if (_this3.datos.length > 0) {
-        setTimeout(function () {
+        // setTimeout(() => {
+        //     this.datoAleatorio = this.datos[Math.floor(Math.random() * this.datos.length)];
+        // }, 3000);
+        if (_this3.datos.length > 0) {
           _this3.datoAleatorio = _this3.datos[Math.floor(Math.random() * _this3.datos.length)];
-        }, 3000);
+        } else {
+          _this3.datoAleatorio = {
+            nombre: '',
+            descripcion: ''
+          };
+        }
       }
     }
   }
@@ -5996,6 +6006,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
 //
 //
 //
@@ -36668,58 +36679,31 @@ var render = function () {
                   _c("label", { attrs: { for: "nombre" } }, [_vm._v("Titulo")]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-12" }, [
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.dato.nombre,
-                            expression: "dato.nombre",
-                          },
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          name: "nombre",
-                          id: "nombre",
-                          placeholder: "Nombre del programa",
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.dato.nombre,
+                          expression: "dato.nombre",
                         },
-                        on: {
-                          change: function ($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function (o) {
-                                return o.selected
-                              })
-                              .map(function (o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.dato,
-                              "nombre",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          },
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "nombre",
+                        placeholder: "Titulo",
+                      },
+                      domProps: { value: _vm.dato.nombre },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.dato, "nombre", $event.target.value)
                         },
                       },
-                      [
-                        _c("option", { attrs: { value: "" } }, [
-                          _vm._v("Seleccione un titulo"),
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.titulos, function (titulo) {
-                          return _c(
-                            "option",
-                            { key: titulo, domProps: { value: titulo } },
-                            [_vm._v(_vm._s(titulo.nombre))]
-                          )
-                        }),
-                      ],
-                      2
-                    ),
+                    }),
                   ]),
                 ]),
                 _vm._v(" "),

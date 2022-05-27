@@ -25,8 +25,8 @@
             <ul class="list-group list-group-flush">
                 <li v-for="dato in datos" :key="dato.id" class="list-group-item d-flex row align-items-center" :class="{'d-none': !dato.mostrar}">
                     <div class="col-md-8 d-flex flex-column">
-                        <span class="card-text">{{ dato.nombre }}</span>
-                        <span class="card-text">Datos: {{ dato.descripcion }}</span>
+                        <span class="card-text"><b>{{ dato.nombre }}</b></span>
+                        <span class="card-text">{{ dato.descripcion }}</span>
                     </div>
                 </li>
             </ul>
@@ -40,7 +40,10 @@ export default ({
         return {
            buscar: '',
            datos: [],
-           datoAleatorio: {}
+           datoAleatorio: {
+               nombre: '',
+               descripcion: '',
+           }
         }
     },
     methods: {
@@ -74,16 +77,12 @@ export default ({
     },
     mounted() {
         this.obtenerDatos();
-        this.datoAleatorio = this.datos[Math.floor(Math.random() * this.datos.length)];
-    },
-    watch: {
-        datoAleatorio: () => {
+        // this.datoAleatorio = this.datos[Math.floor(Math.random() * this.datos.length)];
+        setTimeout(() => {
             if (this.datos.length > 0) {
-                setTimeout(() => {
-                    this.datoAleatorio = this.datos[Math.floor(Math.random() * this.datos.length)];
-                }, 3000);
+                this.datoAleatorio = this.datos[Math.floor(Math.random() * this.datos.length)];
             }
-        }
-    }
+        }, 1000);
+    },
 })
 </script>

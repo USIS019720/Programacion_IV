@@ -39,7 +39,10 @@ class DatosCuriososController extends Controller
             'nombre' => 'required',
             'descripcion' => 'required',
         ]);
-        $nuevaEspecie = DatosCuriosos::create($datos);
+        $nuevaDato = new DatosCuriosos;
+        $nuevaDato->nombre = $datos['nombre'];
+        $nuevaDato->descripcion = $datos['descripcion'];
+        $nuevaDato->save();
         return response()->json(['status' => 'success',]);
     }
 

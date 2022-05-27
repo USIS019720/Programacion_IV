@@ -10,10 +10,11 @@
                         <div class="row mb-3">
                             <label for="nombre">Titulo</label>
                             <div class="col-md-12">
-                                <select class="form-control" name="nombre" id="nombre" placeholder="Nombre del programa" v-model="dato.nombre">
+                                <input type="text" v-model="dato.nombre" class="form-control" id="nombre" placeholder="Titulo">
+                                <!-- <select class="form-control" name="nombre" id="nombre" placeholder="Nombre del programa" v-model="dato.nombre">
                                     <option value="">Seleccione un titulo</option>
-                                    <option v-for="titulo in titulos" :value="titulo" :key="titulo">{{titulo.nombre}}</option>
-                                </select>
+                                    <option v-for="titulo in titulos" :value="titulo" :key="titulo">{{titulo}}</option>
+                                </select> -->
                             </div>
                         </div>
 

@@ -95,6 +95,7 @@
                         <nuevo-consejo v-bind:form="forms" ref="nuevoConsejo" v-if="forms['nuevoConsejo'].mostrar"></nuevo-consejo>
 
                         <curiosidades v-bind:form="forms" ref="curiosidades" v-if="forms['curiosidades'].mostrar"></curiosidades>
+                        <nuevo-dato v-bind:form="forms" ref="nuevoDato" v-if="forms['nuevoDato'].mostrar"></nuevo-dato>
                         <legislacion v-bind:form="forms" ref="legislacion" v-if="forms['legislacion'].mostrar"></legislacion>
                     </div>
                 </div>

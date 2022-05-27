@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnimalesControlador;
 use App\Http\Controllers\ProgramasControlador;
 use App\Http\Controllers\ConsejosControlador;
+use App\Http\Controllers\DatosCuriososController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ Route::get('/', function () {
 Route::resource('animales', AnimalesControlador::class);
 Route::resource('programas', ProgramasControlador::class);
 Route::resource('consejos', ConsejosControlador::class);
-Route::resource('datos', DatosCuriososControlador::class);
+Route::resource('datos', DatosCuriososController::class);
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
