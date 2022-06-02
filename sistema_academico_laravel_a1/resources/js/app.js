@@ -5,7 +5,9 @@
  */
 
 require('./bootstrap');
-
+//
+import Vue from 'vue';
+//
 window.Vue = require('vue');
 window.db = '';
 window.generarIdUnicoFecha = ()=>{
@@ -30,6 +32,9 @@ Vue.component('docente-component', require('./components/DocenteComponent.vue').
 Vue.component('matricula-component', require('./components/MatriculaComponent.vue').default);
 Vue.component('v-select-alumno', vSelect);
 
+import alumno from './components/AlumnoComponent.vue';
+import docente from './components/DocenteComponent.vue';
+import matricula from './components/MatriculaComponent.vue';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -39,6 +44,13 @@ Vue.component('v-select-alumno', vSelect);
 const app = new Vue({
     el: '#app',
     data:{
+        components:{
+            alumno,
+            docente,
+            matricula,
+            vSelect
+
+        },
         forms:{
             alumno:{mostrar:false},
             materia:{mostrar:false},
