@@ -5,17 +5,18 @@
  */
 
 require('./bootstrap');
-//
+
+//window.Vue = require('vue');
 import Vue from 'vue';
-//
-window.Vue = require('vue');
 window.db = '';
 window.generarIdUnicoFecha = ()=>{
     let fecha = new Date();
     return Math.floor(fecha.getTime()/1000).toString(16);
 }
-import vSelect from 'vue-select';
-import 'vue-select/dist/vue-select.css';
+window.sockectio = io('http://localhost:3001');
+sockectio.on('connect',function(e){
+    console.log('Conectado');
+});
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -27,14 +28,15 @@ import 'vue-select/dist/vue-select.css';
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('alumno-component', require('./components/AlumnoComponent.vue').default);
+/*Vue.component('alumno-component', require('./components/AlumnoComponent.vue').default);
 Vue.component('docente-component', require('./components/DocenteComponent.vue').default);
 Vue.component('matricula-component', require('./components/MatriculaComponent.vue').default);
-Vue.component('v-select-alumno', vSelect);
-
+Vue.component('v-select-alumno', vSelect);*/
 import alumno from './components/AlumnoComponent.vue';
 import docente from './components/DocenteComponent.vue';
 import matricula from './components/MatriculaComponent.vue';
+import chat from './components/ChatComponent.vue';
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -43,14 +45,13 @@ import matricula from './components/MatriculaComponent.vue';
 
 const app = new Vue({
     el: '#app',
+    components:{
+        alumno,
+        docente,
+        matricula,
+        chat
+    },
     data:{
-        components:{
-            alumno,
-            docente,
-            matricula,
-            vSelect
-
-        },
         forms:{
             alumno:{mostrar:false},
             materia:{mostrar:false},
@@ -58,6 +59,7 @@ const app = new Vue({
             nota:{mostrar:false},
             matricula:{mostrar:false},
             inscripcion:{mostrar:false},
+            chat:{mostrar:false}
         }
     },
     methods:{
