@@ -29,7 +29,7 @@
                         <div class="row mb-3">
                             <label for="habitad">Habitad</label>
                             <div class="col-md-12">
-                                <input type="text" class="form-control" name="habitad" id="habitad" placeholder="Habitad de la especie" v-model="especie.habitad">
+                                <input type="text" class="d-none" name="habitad" id="habitad" placeholder="Habitad de la especie" v-model="especie.habitad">
                                 <div id="mimapa" style="height: 200px; width: 100%;"></div>
                             </div>
                         </div>

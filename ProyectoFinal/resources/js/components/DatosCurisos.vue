@@ -80,8 +80,10 @@ export default ({
         // this.datoAleatorio = this.datos[Math.floor(Math.random() * this.datos.length)];
         setTimeout(() => {
             if (this.datos.length > 0) {
+                console.log(this.datos[Math.floor(Math.random() * this.datos.length)]);
                 this.datoAleatorio = this.datos[Math.floor(Math.random() * this.datos.length)];
             }
+            this.$forceUpdate();
         }, 1000);
     },
 })

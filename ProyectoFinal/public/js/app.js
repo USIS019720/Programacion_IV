@@ -5485,8 +5485,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-var _this3 = undefined;
-
 //
 //
 //
@@ -5567,24 +5565,18 @@ var _this3 = undefined;
     }
   },
   mounted: function mounted() {
+    var _this3 = this;
+
     this.obtenerDatos(); // this.datoAleatorio = this.datos[Math.floor(Math.random() * this.datos.length)];
-  },
-  watch: {
-    datoAleatorio: function datoAleatorio() {
+
+    setTimeout(function () {
       if (_this3.datos.length > 0) {
-        // setTimeout(() => {
-        //     this.datoAleatorio = this.datos[Math.floor(Math.random() * this.datos.length)];
-        // }, 3000);
-        if (_this3.datos.length > 0) {
-          _this3.datoAleatorio = _this3.datos[Math.floor(Math.random() * _this3.datos.length)];
-        } else {
-          _this3.datoAleatorio = {
-            nombre: '',
-            descripcion: ''
-          };
-        }
+        console.log(_this3.datos[Math.floor(Math.random() * _this3.datos.length)]);
+        _this3.datoAleatorio = _this3.datos[Math.floor(Math.random() * _this3.datos.length)];
       }
-    }
+
+      _this3.$forceUpdate();
+    }, 1000);
   }
 });
 
@@ -35906,11 +35898,11 @@ var render = function () {
               [
                 _c("div", { staticClass: "col-md-8 d-flex flex-column" }, [
                   _c("span", { staticClass: "card-text" }, [
-                    _vm._v(_vm._s(dato.nombre)),
+                    _c("b", [_vm._v(_vm._s(dato.nombre))]),
                   ]),
                   _vm._v(" "),
                   _c("span", { staticClass: "card-text" }, [
-                    _vm._v("Datos: " + _vm._s(dato.descripcion)),
+                    _vm._v(_vm._s(dato.descripcion)),
                   ]),
                 ]),
               ]
@@ -36349,7 +36341,7 @@ var render = function () {
                           expression: "especie.habitad",
                         },
                       ],
-                      staticClass: "form-control",
+                      staticClass: "d-none",
                       attrs: {
                         type: "text",
                         name: "habitad",
